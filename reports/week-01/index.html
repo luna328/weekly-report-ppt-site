@@ -2,280 +2,746 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8" />
-<title>本周工作周报 | Pink Script</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script src="deck-stage.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>第一周工作周报 | Cobalt Grid</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;1,300;1,400;1,500&family=Hanken+Grotesk:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
-  :root{
-    --ink:#060507;
-    --paper:#F5EDF1;
-    --pink:#ED3D8C;
-    --pink-2:#FF66A8;
-    --line:rgba(237,61,140,.34);
-    --mute:rgba(245,237,241,.62);
-    --hair:rgba(245,237,241,.16);
+  :root {
+    --paper: #F0EBDE;
+    --paper-2: #E6E0CE;
+    --ink: #1F2BE0;
+    --ink-soft: #5560E5;
+    --grid: rgba(31, 43, 224, .10);
+    --rule: #1F2BE0;
   }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html,body{background:#000;color:var(--paper);font-family:"Inter","Microsoft YaHei","PingFang SC",system-ui,sans-serif}
-  deck-stage>section.slide{
-    position:relative;width:1920px;height:1080px;overflow:hidden;color:var(--paper);
-    background:radial-gradient(ellipse 90% 70% at 28% 26%,#1A1218 0%,#0A0709 55%,#050306 100%);
+
+  * {
+    box-sizing: border-box;
   }
-  .slide::before{
-    content:"";position:absolute;inset:0;pointer-events:none;opacity:.08;mix-blend-mode:screen;
-    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    background: #0a0a0a;
+    overflow: hidden;
   }
-  .slide::after{content:"";position:absolute;inset:36px;pointer-events:none;border:1px solid var(--hair)}
-  .runner,.footer{
-    position:absolute;left:60px;right:60px;display:flex;align-items:baseline;justify-content:space-between;
-    font-family:"JetBrains Mono","Microsoft YaHei",monospace;font-size:23px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);z-index:5;white-space:nowrap;
+
+  body {
+    color: var(--ink);
+    font-family: "Hanken Grotesk", "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
   }
-  .runner{top:60px}.footer{bottom:60px}.runner .brand,.footer em{color:var(--pink);font-style:normal}.footer .pageno{color:var(--paper)}
-  .script{font-family:"Instrument Serif","STSong","SimSun",serif;font-style:italic;font-weight:400;color:var(--pink);letter-spacing:0;line-height:1.05;padding-bottom:.12em}
-  .mono{font-family:"JetBrains Mono","Microsoft YaHei",monospace;letter-spacing:.12em;text-transform:uppercase}
-  .rule{height:1px;background:var(--pink);opacity:.45}
-  .kicker{font-family:"JetBrains Mono","Microsoft YaHei",monospace;font-size:22px;letter-spacing:.16em;text-transform:uppercase;color:var(--pink)}
-  .back-home{
-    position:fixed;left:28px;top:26px;z-index:9999;display:inline-flex;align-items:center;gap:8px;
-    padding:10px 14px;color:var(--paper);text-decoration:none;background:rgba(6,5,7,.72);
-    border:1px solid rgba(237,61,140,.55);border-radius:999px;
-    font:500 14px/1 "Inter","Microsoft YaHei",system-ui,sans-serif;letter-spacing:.04em;
-    backdrop-filter:blur(10px);box-shadow:0 12px 32px rgba(0,0,0,.28);
+
+  .deck {
+    position: fixed;
+    inset: 0;
+    display: grid;
+    place-items: center;
   }
-  .back-home:hover{color:var(--pink);border-color:var(--pink)}
-  .zh-title{font-family:"Instrument Serif","STSong","SimSun",serif;font-style:italic;font-weight:400;letter-spacing:0}
-  .s-cover .stage{position:absolute;left:60px;right:60px;top:176px;bottom:350px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px}
-  .s-cover .pre{font-family:"JetBrains Mono","Microsoft YaHei",monospace;font-size:28px;letter-spacing:.38em;text-transform:uppercase;color:var(--paper);opacity:.78}
-  .s-cover .title{font-size:232px;line-height:1.04;text-align:center;text-shadow:0 0 80px rgba(237,61,140,.18)}
-  .s-cover .title .l2{display:block;color:var(--paper);padding-left:120px}
-  .s-cover .sub{font-size:28px;letter-spacing:.14em;text-transform:uppercase;color:var(--paper);opacity:.86;margin-top:12px}
-  .s-cover .sub em{color:var(--pink);font-style:normal}
-  .s-cover .lower{position:absolute;left:60px;right:60px;bottom:160px;display:flex;justify-content:space-between;align-items:end;gap:32px}
-  .s-cover .lab{font-family:"JetBrains Mono","Microsoft YaHei",monospace;font-size:22px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
-  .s-cover .val{font-size:46px;color:var(--pink);line-height:1.15}.s-cover .val.alt{color:var(--paper)}
-  .s-toc .body{position:absolute;inset:140px 60px 140px 60px;display:grid;grid-template-columns:500px 1fr;gap:80px}
-  .s-toc h1{font-size:200px;line-height:1.04;color:var(--pink)}
-  .s-toc h1 .small{display:block;font-size:74px;color:var(--paper);margin-top:12px;opacity:.84}
-  .s-toc .rows{display:flex;flex-direction:column}
-  .s-toc .row{display:grid;grid-template-columns:100px 1fr 180px;gap:32px;align-items:baseline;padding:25px 0;border-bottom:1px solid var(--hair)}
-  .s-toc .num{font-family:"Instrument Serif",serif;font-style:italic;font-size:62px;color:var(--pink);line-height:1}
-  .s-toc .title{font-size:52px;color:var(--paper);line-height:1.06}
-  .s-toc .desc{font-size:24px;color:var(--mute);margin-top:8px;line-height:1.42;font-weight:300}
-  .s-toc .meta{font-family:"JetBrains Mono","Microsoft YaHei",monospace;font-size:22px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);text-align:right}
-  .s-stats .body{position:absolute;inset:140px 60px 140px 60px;display:grid;grid-template-columns:.95fr 1.05fr;gap:70px}
-  .s-stats .left{display:flex;flex-direction:column;justify-content:space-between;padding-right:20px}
-  .s-stats h2{font-size:128px;line-height:1.08;color:var(--paper)}
-  .s-stats h2 em{color:var(--pink);font-style:italic}
-  .s-stats p{font-size:26px;line-height:1.62;color:var(--mute);max-width:34ch;font-weight:300}
-  .s-stats .right{display:flex;flex-direction:column;gap:18px}
-  .s-stats .stat{display:grid;grid-template-columns:205px 1fr;align-items:center;gap:30px;padding-bottom:16px;border-bottom:1px solid var(--hair)}
-  .s-stats .figure{font-family:"Instrument Serif",serif;font-style:italic;font-size:112px;line-height:.9;color:var(--pink)}
-  .s-stats .lab{font-family:"JetBrains Mono","Microsoft YaHei",monospace;font-size:22px;letter-spacing:.12em;text-transform:uppercase;color:var(--paper)}
-  .s-stats .desc{font-size:24px;color:var(--mute);margin-top:8px;line-height:1.45;font-weight:300}
-  .s-section .body{position:absolute;inset:0;display:flex;align-items:center;justify-content:flex-start;padding-left:200px}
-  .s-section .num{font-family:"Instrument Serif",serif;font-style:italic;color:var(--pink);font-size:560px;line-height:.82;letter-spacing:0;text-shadow:0 0 120px rgba(237,61,140,.22)}
-  .s-section .label-l{position:absolute;left:80px;bottom:140px;transform:rotate(-90deg);transform-origin:left bottom;font-family:"JetBrains Mono","Microsoft YaHei",monospace;font-size:22px;letter-spacing:.35em;text-transform:uppercase;color:var(--mute);white-space:nowrap}
-  .s-section .right{position:absolute;right:100px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:18px;max-width:430px}
-  .s-section h2{font-size:86px;line-height:1.08;color:var(--paper)}
-  .s-section p{font-size:25px;line-height:1.55;color:var(--mute);font-weight:300}
-  .s-process .head{position:absolute;left:60px;right:60px;top:140px;display:flex;align-items:end;justify-content:space-between;gap:60px}
-  .s-process h2{font-size:136px;line-height:1.05;color:var(--paper);max-width:12ch}
-  .s-process h2 em{color:var(--pink);font-style:italic}
-  .s-process .lead{font-size:26px;color:var(--mute);max-width:42ch;line-height:1.58;font-weight:300;padding-bottom:18px}
-  .s-process .row{position:absolute;left:60px;right:60px;top:520px;display:grid;grid-template-columns:repeat(5,1fr);gap:24px}
-  .s-process .step{position:relative;display:flex;flex-direction:column;gap:18px;padding:26px 0;border-top:1px solid var(--pink)}
-  .s-process .n{font-family:"Instrument Serif",serif;font-style:italic;font-size:90px;color:var(--pink);line-height:.8}
-  .s-process h3{font-size:40px;color:var(--paper);line-height:1.1}
-  .s-process p{font-size:22px;color:var(--mute);line-height:1.5;font-weight:300}
-  .s-process .arr{position:absolute;right:-16px;top:60px;width:24px;height:24px;color:var(--pink);pointer-events:none}.s-process .step:last-child .arr{display:none}
-  .s-matrix .head{position:absolute;left:60px;right:60px;top:140px;display:flex;align-items:end;justify-content:space-between;gap:60px}
-  .s-matrix h2{font-size:122px;line-height:1.05;color:var(--paper);max-width:14ch}.s-matrix h2 em{color:var(--pink);font-style:italic}
-  .s-matrix .source{font-family:"JetBrains Mono","Microsoft YaHei",monospace;font-size:21px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);padding-bottom:18px;max-width:36ch;line-height:1.5;text-align:right}
-  .s-matrix .table{position:absolute;left:60px;right:60px;top:440px;bottom:140px;display:grid;grid-template-columns:1.15fr 1.35fr 1.35fr 1.35fr;grid-auto-rows:1fr}
-  .s-matrix .cell{padding:14px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;font-size:22px;line-height:1.42;color:var(--paper);font-weight:300}
-  .s-matrix .colhead{font-family:"JetBrains Mono","Microsoft YaHei",monospace;font-size:20px;letter-spacing:.12em;text-transform:uppercase;color:var(--pink);border-bottom-color:var(--pink)}
-  .s-matrix .label{font-size:31px;color:var(--paper)}
-  .s-matrix .focus{background:rgba(237,61,140,.08)}
-  .s-matrix .pill{display:inline-block;padding:6px 14px;font-family:"JetBrains Mono","Microsoft YaHei",monospace;font-size:16px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--pink);white-space:nowrap;line-height:1.2;color:var(--pink)}
-  .s-quote .body{position:absolute;inset:140px 60px 140px 60px;display:grid;grid-template-columns:330px 1fr;gap:80px;align-items:center}
-  .s-quote .qmark{font-family:"Instrument Serif",serif;font-style:italic;font-size:300px;line-height:.7;color:var(--pink)}
-  .s-quote .lab{font-family:"JetBrains Mono","Microsoft YaHei",monospace;font-size:22px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
-  .s-quote blockquote{font-family:"Instrument Serif","STSong","SimSun",serif;font-style:italic;font-size:78px;line-height:1.16;color:var(--paper)}
-  .s-quote blockquote em{color:var(--pink);font-style:italic}
-  .s-quote .attr{margin-top:36px;padding-top:22px;border-top:1px solid var(--pink)}
-  .s-quote .who{font-size:28px;color:var(--paper)}.s-quote .role{font-size:22px;color:var(--mute);margin-top:8px}
-  .s-cta .body{position:absolute;inset:140px 60px 140px 60px;display:flex;flex-direction:column;justify-content:space-between}
-  .s-cta .pre{font-family:"JetBrains Mono","Microsoft YaHei",monospace;font-size:24px;letter-spacing:.18em;text-transform:uppercase;color:var(--pink)}
-  .s-cta h2{font-size:132px;line-height:1.05;color:var(--paper);max-width:12ch}.s-cta h2 em{color:var(--pink);font-style:italic}
-  .s-cta .bottom{display:grid;grid-template-columns:repeat(3,1fr) 320px;gap:28px;align-items:end}
-  .s-cta .step{border-top:1px solid var(--pink);padding-top:22px;min-height:210px}
-  .s-cta .n{font-family:"Instrument Serif",serif;font-style:italic;font-size:80px;color:var(--pink);line-height:.85}
-  .s-cta h3{font-size:38px;color:var(--paper);margin-top:10px}.s-cta p{font-size:22px;color:var(--mute);line-height:1.5;margin-top:12px;font-weight:300}
-  .s-cta .nextbox{border:1px solid var(--pink);padding:26px;height:248px;display:flex;flex-direction:column;justify-content:space-between}
-  .s-cta .nextbox .big{font-size:58px;color:var(--pink);line-height:1.05}.s-cta .nextbox .small{font-size:21px;line-height:1.5;color:var(--mute)}
+
+  .stage {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: var(--paper);
+  }
+
+  .stage::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background-image:
+      linear-gradient(to right, var(--grid) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+    background-size: clamp(28px, 2.2vw, 44px) clamp(28px, 2.2vw, 44px);
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 280ms ease;
+  }
+
+  .slide.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .hairlines::before,
+  .hairlines::after {
+    content: "";
+    position: absolute;
+    left: clamp(36px, 3.6vw, 80px);
+    right: clamp(36px, 3.6vw, 80px);
+    height: 1.5px;
+    background: var(--ink);
+    z-index: 4;
+    pointer-events: none;
+  }
+
+  .hairlines::before {
+    top: clamp(28px, 2.6vh, 48px);
+  }
+
+  .hairlines::after {
+    bottom: clamp(20px, 2vh, 32px);
+  }
+
+  .disp {
+    font-family: "Newsreader", "STSong", serif;
+    font-style: italic;
+    font-weight: 400;
+    line-height: .92;
+    letter-spacing: 0;
+    color: var(--ink);
+  }
+
+  .body-tx {
+    font-weight: 400;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+
+  .caption,
+  .mono {
+    font-family: "DM Mono", ui-monospace, Consolas, monospace;
+    color: var(--ink);
+  }
+
+  .caption {
+    font-size: clamp(10px, .82vw, 13px);
+    line-height: 1.4;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+  }
+
+  .pagenum {
+    position: absolute;
+    right: clamp(28px, 2.4vw, 48px);
+    bottom: clamp(48px, 4.8vh, 76px);
+    z-index: 9;
+    font-family: "DM Mono", ui-monospace, Consolas, monospace;
+    font-size: clamp(11px, .82vw, 13px);
+    letter-spacing: .06em;
+  }
+
+  .back-home {
+    position: fixed;
+    left: clamp(18px, 2vw, 32px);
+    top: clamp(18px, 2vw, 32px);
+    z-index: 20;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 13px;
+    color: var(--ink);
+    text-decoration: none;
+    background: rgba(240, 235, 222, .84);
+    border: 1.5px solid var(--ink);
+    font: 600 13px/1 "Hanken Grotesk", "Microsoft YaHei", system-ui, sans-serif;
+    letter-spacing: .06em;
+  }
+
+  .back-home:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .nav-hint {
+    position: fixed;
+    left: clamp(36px, 3.6vw, 80px);
+    bottom: clamp(48px, 4.8vh, 76px);
+    z-index: 12;
+    opacity: .55;
+    pointer-events: none;
+  }
+
+  .pixel-glitch {
+    position: absolute;
+    z-index: 3;
+    pointer-events: none;
+    opacity: .88;
+  }
+
+  .pixel-glitch svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .s-cover .titlewrap {
+    position: absolute;
+    left: clamp(44px, 5vw, 96px);
+    top: clamp(90px, 12vh, 150px);
+    z-index: 5;
+    max-width: 70%;
+  }
+
+  .s-cover .title {
+    font-size: clamp(86px, min(10.5vw, 16vh), 190px);
+  }
+
+  .s-cover .subtitle {
+    max-width: 680px;
+    margin-top: clamp(24px, 3vh, 42px);
+    font-size: clamp(20px, 1.65vw, 32px);
+    line-height: 1.5;
+  }
+
+  .s-cover .meta-row {
+    position: absolute;
+    left: clamp(44px, 5vw, 96px);
+    right: clamp(44px, 5vw, 96px);
+    bottom: clamp(92px, 12vh, 138px);
+    z-index: 6;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    border-top: 1.5px solid var(--ink);
+    padding-top: 20px;
+  }
+
+  .s-cover .ftag {
+    margin-bottom: 8px;
+  }
+
+  .s-cover .pixel-glitch {
+    right: clamp(20px, 6vw, 120px);
+    top: clamp(80px, 12vh, 150px);
+    width: clamp(160px, 20vw, 340px);
+    height: clamp(280px, 48vh, 540px);
+  }
+
+  .frame {
+    position: absolute;
+    left: clamp(44px, 5vw, 96px);
+    right: clamp(44px, 5vw, 96px);
+    top: clamp(86px, 10vh, 126px);
+    bottom: clamp(94px, 11vh, 134px);
+    z-index: 5;
+  }
+
+  .topbar {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: end;
+    border-bottom: 1.5px solid var(--ink);
+    padding-bottom: clamp(18px, 2.5vh, 28px);
+  }
+
+  .topbar .h {
+    font-family: "Newsreader", "STSong", serif;
+    font-style: italic;
+    font-size: clamp(46px, min(5.6vw, 8vh), 100px);
+    line-height: .96;
+  }
+
+  .topbar .lab-tag {
+    max-width: 300px;
+    text-align: right;
+  }
+
+  .s-index .list {
+    margin-top: clamp(22px, 3vh, 36px);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(36px, 5vw, 82px);
+    row-gap: clamp(18px, 2.6vh, 30px);
+  }
+
+  .s-index .row {
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    gap: 16px;
+    padding-bottom: clamp(14px, 1.8vh, 22px);
+    border-bottom: 1px solid rgba(31, 43, 224, .26);
+  }
+
+  .s-index h3,
+  .s-process h3,
+  .s-plan h3 {
+    margin: 0;
+    font-family: "Newsreader", "STSong", serif;
+    font-style: italic;
+    font-size: clamp(26px, 2.5vw, 44px);
+    line-height: 1.04;
+    font-weight: 400;
+  }
+
+  .s-index p,
+  .s-process p,
+  .s-plan p {
+    margin: 8px 0 0;
+    font-size: clamp(15px, 1.15vw, 21px);
+    line-height: 1.5;
+  }
+
+  .s-process .steps,
+  .s-plan .steps {
+    position: absolute;
+    left: clamp(44px, 5vw, 96px);
+    right: clamp(44px, 5vw, 96px);
+    top: clamp(350px, 39vh, 440px);
+    z-index: 5;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: clamp(18px, 2vw, 30px);
+  }
+
+  .step {
+    border-top: 2px solid var(--ink);
+    padding-top: 18px;
+  }
+
+  .step .n {
+    margin-bottom: 12px;
+    font-family: "Newsreader", Georgia, serif;
+    font-style: italic;
+    font-size: clamp(46px, 5vw, 88px);
+    line-height: .82;
+  }
+
+  .s-process .lede,
+  .s-plan .lede,
+  .s-chapter .lede {
+    max-width: 720px;
+    margin-top: 22px;
+    font-size: clamp(18px, 1.5vw, 27px);
+    line-height: 1.55;
+  }
+
+  .s-data .body {
+    margin-top: clamp(26px, 4vh, 52px);
+    display: grid;
+    grid-template-columns: .86fr 1.14fr;
+    gap: clamp(40px, 5vw, 86px);
+    align-items: stretch;
+  }
+
+  .stat-grid {
+    display: grid;
+    gap: 18px;
+  }
+
+  .stat {
+    border-top: 2px solid var(--ink);
+    padding-top: 16px;
+  }
+
+  .vbig {
+    font-family: "Newsreader", Georgia, serif;
+    font-style: italic;
+    font-size: clamp(62px, 8vw, 146px);
+    line-height: .88;
+  }
+
+  .stat .desc {
+    max-width: 480px;
+    margin-top: 10px;
+    font-size: clamp(16px, 1.2vw, 22px);
+    line-height: 1.48;
+  }
+
+  .ledger {
+    display: grid;
+    border-top: 2px solid var(--ink);
+  }
+
+  .ledger .row {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr 1.25fr;
+    gap: 16px;
+    min-height: 86px;
+    align-items: center;
+    border-bottom: 1px solid rgba(31, 43, 224, .34);
+  }
+
+  .ledger .headrow {
+    min-height: 42px;
+  }
+
+  .ledger .nm {
+    font-family: "Newsreader", "STSong", serif;
+    font-style: italic;
+    font-size: clamp(24px, 2.3vw, 40px);
+  }
+
+  .ledger .desc {
+    font-size: clamp(15px, 1.1vw, 20px);
+    line-height: 1.45;
+  }
+
+  .s-quote .qframe {
+    position: absolute;
+    left: clamp(54px, 7vw, 132px);
+    right: clamp(54px, 7vw, 132px);
+    top: 50%;
+    z-index: 5;
+    transform: translateY(-50%);
+  }
+
+  .s-quote .qbody {
+    margin: 0;
+    max-width: 1180px;
+    font-family: "Newsreader", "STSong", serif;
+    font-style: italic;
+    font-size: clamp(46px, min(5.8vw, 8.2vh), 104px);
+    line-height: 1.03;
+  }
+
+  .s-quote .qattr {
+    margin-top: 36px;
+    padding-top: 18px;
+    border-top: 2px solid var(--ink);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 26px;
+    align-items: baseline;
+  }
+
+  .s-quote .pixel-glitch {
+    right: clamp(28px, 6vw, 110px);
+    top: clamp(120px, 18vh, 210px);
+    width: clamp(120px, 15vw, 260px);
+    height: clamp(260px, 44vh, 510px);
+    opacity: .45;
+  }
+
+  .s-colophon .titlewrap {
+    position: absolute;
+    left: clamp(44px, 5vw, 96px);
+    top: clamp(108px, 14vh, 172px);
+    z-index: 5;
+  }
+
+  .s-colophon .ttl {
+    margin: 16px 0 0;
+    max-width: 880px;
+    font-family: "Newsreader", "STSong", serif;
+    font-style: italic;
+    font-size: clamp(64px, min(8vw, 12vh), 144px);
+    line-height: .96;
+    font-weight: 400;
+  }
+
+  .col-footer {
+    position: absolute;
+    left: clamp(44px, 5vw, 96px);
+    right: clamp(44px, 5vw, 96px);
+    bottom: clamp(94px, 11vh, 138px);
+    z-index: 5;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+    border-top: 2px solid var(--ink);
+    padding-top: 18px;
+  }
+
+  .ftxt {
+    margin-top: 8px;
+    font-size: clamp(14px, 1vw, 18px);
+    line-height: 1.45;
+  }
+
+  .progress {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 20;
+    height: 4px;
+    background: rgba(31, 43, 224, .16);
+  }
+
+  .progress span {
+    display: block;
+    width: 12.5%;
+    height: 100%;
+    background: var(--ink);
+    transition: width 260ms ease;
+  }
+
+  @media (max-width: 900px) {
+    .topbar,
+    .s-cover .meta-row,
+    .s-index .list,
+    .s-data .body,
+    .col-footer {
+      grid-template-columns: 1fr;
+    }
+
+    .topbar .lab-tag {
+      text-align: left;
+    }
+
+    .s-process .steps,
+    .s-plan .steps {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      top: 38vh;
+    }
+
+    .slide {
+      overflow: hidden;
+    }
+  }
 </style>
 </head>
 <body>
 <a class="back-home" href="../../" aria-label="返回目录">← 返回目录</a>
-<deck-stage>
-  <section class="slide s-cover" data-label="01 Cover" data-om-validate="false">
-    <div class="runner"><span class="brand">Weekly Report</span><span>Procurement Onboarding</span></div>
-    <div class="stage">
-      <div class="pre">采购工作周报</div>
-      <div class="title zh-title"><span>本周工作</span><span class="l2">周报</span></div>
-      <div class="sub">Supplier · Material · ERP · <em>Closure</em></div>
-    </div>
-    <div class="lower">
-      <div><div class="lab">Focus</div><div class="val zh-title">供应商 / 物料 / 交期</div></div>
-      <div><div class="lab">Theme</div><div class="val alt zh-title">熟悉流程，建立台账，主动闭环</div></div>
-    </div>
-    <div class="footer"><span>Work Summary</span><span class="pageno"><em>01</em> / 09</span></div>
-  </section>
 
-  <section class="slide s-toc" data-label="02 Index" data-om-validate="false">
-    <div class="runner"><span class="brand">Index</span><span>Key Points</span></div>
-    <div class="body">
-      <h1 class="zh-title">目录<span class="small">This Week</span></h1>
-      <div class="rows">
-        <div class="row"><div class="num">01</div><div><div class="title zh-title">完成事项</div><div class="desc">供应商台账、电机交期、欠料回复、BOM 成本、线材、跨部门与 ERP。</div></div><div class="meta">Slides 03-05</div></div>
-        <div class="row"><div class="num">02</div><div><div class="title zh-title">异常处理</div><div class="desc">供应商回复不及时，已沟通、上报并同步 PMC。</div></div><div class="meta">Slide 06</div></div>
-        <div class="row"><div class="num">03</div><div><div class="title zh-title">下周计划</div><div class="desc">继续补台账、盯交期、学 BOM、熟悉金蝶和采购流程。</div></div><div class="meta">Slide 07</div></div>
-        <div class="row"><div class="num">04</div><div><div class="title zh-title">心得体会</div><div class="desc">从“催交期”延伸到理解物料、产品、成本与协作。</div></div><div class="meta">Slide 08</div></div>
-        <div class="row"><div class="num">05</div><div><div class="title zh-title">行动闭环</div><div class="desc">沉淀基础资料，提升主动反馈和独立处理能力。</div></div><div class="meta">Slide 09</div></div>
+<div class="deck">
+  <div class="stage">
+    <section class="slide s-cover hairlines active">
+      <div class="pixel-glitch" aria-hidden="true">
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+          <defs>
+            <pattern id="vs1" width="2.4" height="100" patternUnits="userSpaceOnUse">
+              <line x1="0.5" y1="0" x2="0.5" y2="100" stroke="#1F2BE0" stroke-width="1" />
+            </pattern>
+          </defs>
+          <rect x="38" y="0" width="42" height="13" fill="url(#vs1)" />
+          <rect x="16" y="13" width="62" height="13" fill="url(#vs1)" />
+          <rect x="30" y="26" width="50" height="12" fill="url(#vs1)" />
+          <rect x="10" y="38" width="68" height="14" fill="url(#vs1)" />
+          <rect x="24" y="52" width="54" height="13" fill="url(#vs1)" />
+          <rect x="12" y="65" width="66" height="14" fill="url(#vs1)" />
+          <rect x="30" y="79" width="48" height="12" fill="url(#vs1)" />
+          <rect x="18" y="91" width="56" height="9" fill="url(#vs1)" />
+        </svg>
       </div>
-    </div>
-    <div class="footer"><span>Agenda</span><span class="pageno"><em>02</em> / 09</span></div>
-  </section>
-
-  <section class="slide s-stats" data-label="03 Completed Overview" data-om-validate="false">
-    <div class="runner"><span class="brand">Chapter 01</span><span>Completed</span></div>
-    <div class="body">
-      <div class="left">
-        <div class="kicker">本周完成事项</div>
-        <h2 class="zh-title">从基础资料到<br><em>交付跟进</em>。</h2>
-        <p>本周重点围绕采购基础信息、物料交期、生产欠料与成本结构展开，把零散事项逐步整理成可查询、可跟进、可反馈的工作基础。</p>
+      <div class="titlewrap">
+        <div class="caption">Procurement Weekly · Week 01</div>
+        <h1 class="disp title">本周工作<br />周报</h1>
+        <p class="body-tx subtitle">围绕供应商、物料、交期、BOM 成本、跨部门流程与金蝶 ERP 适配，完成采购基础信息和工作闭环的初步搭建。</p>
       </div>
-      <div class="right">
-        <div class="stat"><div class="figure">01</div><div><div class="lab">供应商与物料梳理</div><div class="desc">整理供应商、物料组对应关系，形成 Excel 台账，便于后续查询和沟通。</div></div></div>
-        <div class="stat"><div class="figure">02</div><div><div class="lab">电机交期跟进</div><div class="desc">确认供应商交付进度，并补充理解生产周期、异常风险和产品作用。</div></div></div>
-        <div class="stat"><div class="figure">03</div><div><div class="lab">生产欠料回复</div><div class="desc">根据欠料表跟进到货进度，同步供应商交付情况，支撑产线安排。</div></div></div>
-        <div class="stat"><div class="figure">10+</div><div><div class="lab">BOM 成本分析</div><div class="desc">整理十几款产品 BOM，初步识别关键物料构成与成本占比。</div></div></div>
+      <div class="meta-row">
+        <div><div class="caption ftag">Focus</div><div>供应商 / 物料 / 交期</div></div>
+        <div><div class="caption ftag">Method</div><div>记录、跟进、反馈、闭环</div></div>
+        <div><div class="caption ftag">Format</div><div>Cobalt Grid HTML Slides</div></div>
       </div>
-    </div>
-    <div class="footer"><span>Foundation · Delivery · Cost</span><span class="pageno"><em>03</em> / 09</span></div>
-  </section>
+      <div class="pagenum">01 / 08</div>
+    </section>
 
-  <section class="slide s-process" data-label="04 Work Flow" data-om-validate="false">
-    <div class="runner"><span class="brand">Chapter 01</span><span>Work Stream</span></div>
-    <div class="head">
-      <h2 class="zh-title">本周<br><em>推进路径</em>。</h2>
-      <div class="lead">工作主线从“信息整理”开始，延伸到交期确认、产线需求、成本认知，再到跨部门流程和系统优化。</div>
-    </div>
-    <div class="row">
-      <div class="step"><div class="n">01</div><h3 class="zh-title">台账</h3><p>供应商分布、物料类别、物料组对应关系初步建档。</p><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16M14 5l7 7-7 7"/></svg></div>
-      <div class="step"><div class="n">02</div><h3 class="zh-title">交期</h3><p>电机、线材交期持续跟进，关注排期、出货和到货。</p><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16M14 5l7 7-7 7"/></svg></div>
-      <div class="step"><div class="n">03</div><h3 class="zh-title">欠料</h3><p>按生产欠料表回复进度，减少物料延迟对生产安排的影响。</p><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16M14 5l7 7-7 7"/></svg></div>
-      <div class="step"><div class="n">04</div><h3 class="zh-title">成本</h3><p>整理产品 BOM，观察关键物料、成本占比和价格波动风险。</p><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16M14 5l7 7-7 7"/></svg></div>
-      <div class="step"><div class="n">05</div><h3 class="zh-title">流程</h3><p>对接仓库、研发、财务，并反馈金蝶系统操作优化需求。</p></div>
-    </div>
-    <div class="footer"><span>Work Stream · This Week</span><span class="pageno"><em>04</em> / 09</span></div>
-  </section>
-
-  <section class="slide s-matrix" data-label="05 Collaboration Matrix" data-om-validate="false">
-    <div class="runner"><span class="brand">Chapter 01</span><span>Collaboration</span></div>
-    <div class="head">
-      <h2 class="zh-title">跨部门<br><em>对接地图</em>。</h2>
-      <div class="source">Warehouse · R&D · Finance · ERP</div>
-    </div>
-    <div class="table">
-      <div class="cell colhead">对象</div><div class="cell colhead">本周对接</div><div class="cell colhead">形成认知</div><div class="cell colhead">后续关注</div>
-      <div class="cell label zh-title">仓库</div><div class="cell focus">收货、打包、寄快递路径</div><div class="cell">采购交付需要落到实际入库与发运动作</div><div class="cell">到货、收货异常、包装要求</div>
-      <div class="cell label zh-title">研发</div><div class="cell focus">样品事项及负责人信息</div><div class="cell">样品需求要明确责任人和沟通链路</div><div class="cell">样品进度、变更信息同步</div>
-      <div class="cell label zh-title">财务</div><div class="cell focus">请款流程及资料要求</div><div class="cell">采购动作与付款节点需要保持一致</div><div class="cell">单据完整性、付款节奏</div>
-      <div class="cell label zh-title">ERP</div><div class="cell focus">列表显示、批量打印订单</div><div class="cell">系统优化会直接影响日常处理效率</div><div class="cell">问题记录、功能反馈、使用习惯沉淀</div>
-    </div>
-    <div class="footer"><span>Process Coordination</span><span class="pageno"><em>05</em> / 09</span></div>
-  </section>
-
-  <section class="slide s-section" data-label="06 Exception" data-om-validate="false">
-    <div class="runner"><span class="brand">Chapter 02</span><span>Exception Handling</span></div>
-    <div class="label-l">Supplier Response · Motor Delivery</div>
-    <div class="body"><div class="num">02</div></div>
-    <div class="right">
-      <div class="kicker">异常情况及处理</div>
-      <h2 class="zh-title">暂无重大异常，<br>但有交期回复风险。</h2>
-      <p>电机供应商未按时回复交期及数量确认，已电话和信息催办；无法明确回复时已上报领导，并同步 PMC 预警可能延迟。</p>
-    </div>
-    <div class="footer"><span>Communicate · Escalate · Notify</span><span class="pageno"><em>06</em> / 09</span></div>
-  </section>
-
-  <section class="slide s-process" data-label="07 Next Week" data-om-validate="false">
-    <div class="runner"><span class="brand">Chapter 03</span><span>Next Week</span></div>
-    <div class="head">
-      <h2 class="zh-title">下周<br><em>工作计划</em>。</h2>
-      <div class="lead">下一步以“持续维护、及时反馈、独立处理”为核心，继续把采购基础能力补齐。</div>
-    </div>
-    <div class="row">
-      <div class="step"><div class="n">01</div><h3 class="zh-title">完善资料</h3><p>补充供应商、物料组、交期、价格和异常记录。</p><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16M14 5l7 7-7 7"/></svg></div>
-      <div class="step"><div class="n">02</div><h3 class="zh-title">盯紧交期</h3><p>持续跟进电机、线材排期、出货时间和实际到货。</p><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16M14 5l7 7-7 7"/></svg></div>
-      <div class="step"><div class="n">03</div><h3 class="zh-title">学习成本</h3><p>继续整理 BOM，关注关键物料与高成本占比物料。</p><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16M14 5l7 7-7 7"/></svg></div>
-      <div class="step"><div class="n">04</div><h3 class="zh-title">熟悉系统</h3><p>记录金蝶 ERP 使用问题，继续沟通优化操作流程。</p><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16M14 5l7 7-7 7"/></svg></div>
-      <div class="step"><div class="n">05</div><h3 class="zh-title">强化闭环</h3><p>已完成、待推进、异常事项及时整理并主动反馈。</p></div>
-    </div>
-    <div class="footer"><span>Plan · Continuous Improvement</span><span class="pageno"><em>07</em> / 09</span></div>
-  </section>
-
-  <section class="slide s-quote" data-label="08 Reflection" data-om-validate="false">
-    <div class="runner"><span class="brand">Chapter 04</span><span>Reflection</span></div>
-    <div class="body">
-      <div class="left"><div class="qmark">"</div><div class="lab">本周心得体会</div></div>
-      <div class="right">
-        <blockquote>
-          采购不只是下单和催货，也要理解<em>物料、供应商、产品、成本</em>以及跨部门协作。
-        </blockquote>
-        <div class="attr">
-          <div class="who">本周主要收获</div>
-          <div class="role">从执行事项，逐步过渡到理解交付风险、成本结构和流程效率。</div>
+    <section class="slide s-index hairlines">
+      <div class="frame">
+        <div class="topbar">
+          <div class="h">本周事项，六个条目。</div>
+          <div class="lab-tag caption">Completed work · selected notes</div>
+        </div>
+        <div class="list">
+          <div class="row"><div class="caption">01.</div><div><h3>供应商及物料信息梳理</h3><p>整理物料组与供应商对应关系，形成 Excel 台账，作为后续查询和跟进基础。</p></div></div>
+          <div class="row"><div class="caption">02.</div><div><h3>电机交期跟进</h3><p>持续确认交付进度，并补充理解电机生产周期、异常风险和产品作用。</p></div></div>
+          <div class="row"><div class="caption">03.</div><div><h3>生产欠料表回复</h3><p>根据产线欠料情况回复和跟进到货进度，减少物料延迟对生产安排的影响。</p></div></div>
+          <div class="row"><div class="caption">04.</div><div><h3>BOM 成本分析整理</h3><p>整理十几款产品 BOM，初步识别关键物料、成本占比和采购关注重点。</p></div></div>
+          <div class="row"><div class="caption">05.</div><div><h3>线材下单及交货跟进</h3><p>按流程推进线材事项，并开始关注铜价波动对线材成本的影响。</p></div></div>
+          <div class="row"><div class="caption">06.</div><div><h3>跨部门与 ERP 对接</h3><p>对接仓库、研发、财务及 ERP 老师，熟悉流程并推动部分系统显示和批量打印优化。</p></div></div>
         </div>
       </div>
-    </div>
-    <div class="footer"><span>Learning · Procurement Role</span><span class="pageno"><em>08</em> / 09</span></div>
-  </section>
+      <div class="pagenum">02 / 08</div>
+    </section>
 
-  <section class="slide s-cta" data-label="09 Close" data-om-validate="false">
-    <div class="runner"><span class="brand">Chapter 05</span><span>Closure</span></div>
-    <div class="body">
-      <div class="top">
-        <div class="pre">Next Focus</div>
-        <h2 class="zh-title"><em>继续沉淀</em><br>采购基础能力。</h2>
+    <section class="slide s-process hairlines">
+      <div class="frame">
+        <div class="topbar">
+          <div class="h">工作推进路径。</div>
+          <div class="lab-tag caption">from information to delivery</div>
+        </div>
+        <p class="body-tx lede">本周工作从基础信息整理出发，逐步延伸到交付风险、产线需求、成本结构、流程协作和系统效率。</p>
       </div>
-      <div class="bottom">
-        <div class="step"><div class="n">01</div><h3 class="zh-title">资料可维护</h3><p>让供应商、物料、价格、交期、异常信息持续更新。</p></div>
-        <div class="step"><div class="n">02</div><h3 class="zh-title">风险早同步</h3><p>供应商回复、交期变化、欠料风险及时记录并反馈。</p></div>
-        <div class="step"><div class="n">03</div><h3 class="zh-title">流程更独立</h3><p>逐步熟悉下单、请款、收货、样品和快递等完整链路。</p></div>
-        <div class="nextbox">
-          <div class="big zh-title">Thank<br>You.</div>
-          <div class="small">以记录促闭环，以理解促协作，以反馈促推进。</div>
+      <div class="steps">
+        <div class="step"><div class="n">01</div><h3>台账</h3><p>供应商分布、物料类别与物料组对应关系初步建档。</p></div>
+        <div class="step"><div class="n">02</div><h3>交期</h3><p>电机、线材持续跟进排期、预计出货和实际到货。</p></div>
+        <div class="step"><div class="n">03</div><h3>欠料</h3><p>按生产欠料表回复进度，支撑产线生产安排。</p></div>
+        <div class="step"><div class="n">04</div><h3>成本</h3><p>整理 BOM，观察关键物料和价格波动影响。</p></div>
+        <div class="step"><div class="n">05</div><h3>流程</h3><p>对接上下游部门，推动 ERP 使用体验优化。</p></div>
+      </div>
+      <div class="pagenum">03 / 08</div>
+    </section>
+
+    <section class="slide s-data hairlines">
+      <div class="frame">
+        <div class="topbar">
+          <div class="h">本周产出，按工作维度。</div>
+          <div class="lab-tag caption">foundation · delivery · cost · system</div>
+        </div>
+        <div class="body">
+          <div class="stat-grid">
+            <div class="stat">
+              <div class="vbig">10+</div>
+              <div class="caption">BOM cost analysis</div>
+              <div class="desc">整理十几款产品 BOM，建立对产品结构、核心物料和成本构成的初步认识。</div>
+            </div>
+            <div class="stat">
+              <div class="vbig">06</div>
+              <div class="caption">work streams</div>
+              <div class="desc">供应商台账、电机交期、欠料回复、线材、跨部门流程、ERP 优化并行推进。</div>
+            </div>
+          </div>
+          <div class="ledger">
+            <div class="row headrow"><div class="caption">Dimension</div><div class="caption">Output</div><div class="caption">Next attention</div></div>
+            <div class="row"><div class="nm">供应商</div><div class="desc">完成初步对应关系整理。</div><div class="desc">补充交期、价格、异常记录。</div></div>
+            <div class="row"><div class="nm">电机</div><div class="desc">持续跟进供应商交付进度。</div><div class="desc">关注回复及时性与到货稳定性。</div></div>
+            <div class="row"><div class="nm">线材</div><div class="desc">下单及交货事项按流程推进。</div><div class="desc">关注铜价变化对采购成本的影响。</div></div>
+            <div class="row"><div class="nm">ERP</div><div class="desc">沟通列表显示与批量打印订单需求。</div><div class="desc">继续记录问题并推动优化。</div></div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="footer"><span>End · Weekly Report</span><span class="pageno"><em>09</em> / 09</span></div>
-  </section>
-</deck-stage>
-<script type="application/json" id="speaker-notes">
-[
-  "封面：本周采购工作周报，核心关键词是供应商、物料、交期、ERP 和闭环。",
-  "目录：将原始周报压缩为完成事项、异常处理、下周计划、心得体会和行动闭环。",
-  "完成事项概览：供应商物料台账、电机交期、生产欠料和 BOM 成本分析。",
-  "工作推进路径：台账、交期、欠料、成本、流程五条主线。",
-  "跨部门对接地图：仓库、研发、财务、ERP 的对接事项和后续关注点。",
-  "异常处理：暂无重大异常；电机供应商回复不及时，已沟通、上报并同步 PMC。",
-  "下周计划：完善资料、跟进交期、学习成本、熟悉系统、强化闭环。",
-  "心得体会：采购不仅是下单催货，也要理解物料、供应商、产品、成本和协作。",
-  "收束页：后续继续沉淀基础资料、早同步风险、提升独立处理能力。"
-]
+      <div class="pagenum">04 / 08</div>
+    </section>
+
+    <section class="slide s-data hairlines">
+      <div class="frame">
+        <div class="topbar">
+          <div class="h">跨部门对接地图。</div>
+          <div class="lab-tag caption">warehouse · r&d · finance · erp</div>
+        </div>
+        <div class="ledger" style="margin-top: clamp(30px, 5vh, 60px);">
+          <div class="row headrow"><div class="caption">对象</div><div class="caption">本周对接</div><div class="caption">后续关注</div></div>
+          <div class="row"><div class="nm">仓库</div><div class="desc">收货、打包、寄快递路径。</div><div class="desc">到货、收货异常、包装要求。</div></div>
+          <div class="row"><div class="nm">研发</div><div class="desc">样品事项及相关负责人信息。</div><div class="desc">样品进度、变更信息同步。</div></div>
+          <div class="row"><div class="nm">财务</div><div class="desc">请款流程及资料要求。</div><div class="desc">单据完整性、付款节点。</div></div>
+          <div class="row"><div class="nm">ERP</div><div class="desc">列表显示、批量打印订单功能。</div><div class="desc">问题记录、功能反馈、操作效率。</div></div>
+        </div>
+      </div>
+      <div class="pagenum">05 / 08</div>
+    </section>
+
+    <section class="slide s-quote hairlines">
+      <div class="pixel-glitch" aria-hidden="true">
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+          <defs>
+            <pattern id="vs6" width="2.4" height="100" patternUnits="userSpaceOnUse">
+              <line x1="0.5" y1="0" x2="0.5" y2="100" stroke="#1F2BE0" stroke-width="1" />
+            </pattern>
+          </defs>
+          <rect x="18" y="0" width="54" height="14" fill="url(#vs6)" />
+          <rect x="34" y="14" width="46" height="13" fill="url(#vs6)" />
+          <rect x="12" y="27" width="64" height="14" fill="url(#vs6)" />
+          <rect x="26" y="41" width="50" height="13" fill="url(#vs6)" />
+          <rect x="20" y="54" width="58" height="14" fill="url(#vs6)" />
+          <rect x="36" y="68" width="44" height="13" fill="url(#vs6)" />
+          <rect x="20" y="81" width="60" height="14" fill="url(#vs6)" />
+        </svg>
+      </div>
+      <div class="qframe">
+        <div class="caption">Exception handling</div>
+        <p class="qbody">本周暂无重大异常；电机供应商未按时回复交期及数量确认，已沟通、上报并同步 PMC 预警。</p>
+        <div class="qattr">
+          <div class="caption">Action</div>
+          <div class="caption">主动确认 · 无法明确时上报 · 同步相关部门 · 持续跟进实际到货</div>
+        </div>
+      </div>
+      <div class="pagenum">06 / 08</div>
+    </section>
+
+    <section class="slide s-plan hairlines">
+      <div class="frame">
+        <div class="topbar">
+          <div class="h">下周工作计划。</div>
+          <div class="lab-tag caption">maintain · follow · learn · improve</div>
+        </div>
+        <p class="body-tx lede">下周继续围绕基础资料、交期跟进、BOM 成本、ERP 操作和采购流程熟悉推进，强化主动反馈和闭环能力。</p>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="n">01</div><h3>完善资料</h3><p>补充供应商、物料组、交期、价格及异常记录。</p></div>
+        <div class="step"><div class="n">02</div><h3>跟进交期</h3><p>持续关注电机、线材排期、出货和实际到货。</p></div>
+        <div class="step"><div class="n">03</div><h3>学习成本</h3><p>继续整理 BOM，关注关键物料及高成本占比物料。</p></div>
+        <div class="step"><div class="n">04</div><h3>熟悉系统</h3><p>记录金蝶 ERP 使用问题，与老师或同事沟通优化。</p></div>
+        <div class="step"><div class="n">05</div><h3>强化闭环</h3><p>完成、待推进、异常事项及时整理并主动反馈。</p></div>
+      </div>
+      <div class="pagenum">07 / 08</div>
+    </section>
+
+    <section class="slide s-colophon hairlines">
+      <div class="titlewrap">
+        <div class="caption">Reflection · Procurement role</div>
+        <h2 class="ttl">从催交期，走向理解物料、产品、成本与协作。</h2>
+      </div>
+      <div class="col-footer">
+        <div><div class="caption">物料理解</div><div class="ftxt">继续加强对电机、电子料、结构件、线材等类别的认识。</div></div>
+        <div><div class="caption">产品理解</div><div class="ftxt">结合实际产品，理解不同物料在整机中的功能与重要程度。</div></div>
+        <div><div class="caption">成本意识</div><div class="ftxt">关注原材料价格波动、成本构成和采购价格变化。</div></div>
+        <div><div class="caption">流程协作</div><div class="ftxt">提升跨部门沟通效率、工作记录和事项闭环能力。</div></div>
+      </div>
+      <div class="pagenum">08 / 08</div>
+    </section>
+  </div>
+</div>
+
+<div class="caption nav-hint">wheel · ↑↓ · ←→ · space</div>
+<div class="progress" aria-hidden="true"><span></span></div>
+
+<script>
+  const slides = Array.from(document.querySelectorAll(".slide"));
+  const progress = document.querySelector(".progress span");
+  let current = 0;
+  let wheelLocked = false;
+
+  function show(index) {
+    const next = Math.max(0, Math.min(slides.length - 1, index));
+    if (next === current) return;
+    slides[current].classList.remove("active");
+    slides[next].classList.add("active");
+    current = next;
+    progress.style.width = `${((current + 1) / slides.length) * 100}%`;
+  }
+
+  function step(direction) {
+    show(current + direction);
+  }
+
+  document.addEventListener("keydown", (event) => {
+    if (["ArrowRight", "ArrowDown", "PageDown", " "].includes(event.key)) {
+      event.preventDefault();
+      step(1);
+    } else if (["ArrowLeft", "ArrowUp", "PageUp"].includes(event.key)) {
+      event.preventDefault();
+      step(-1);
+    } else if (event.key === "Home") {
+      event.preventDefault();
+      show(0);
+    } else if (event.key === "End") {
+      event.preventDefault();
+      show(slides.length - 1);
+    }
+  });
+
+  window.addEventListener("wheel", (event) => {
+    event.preventDefault();
+    if (wheelLocked || Math.abs(event.deltaY) < 12) return;
+    wheelLocked = true;
+    step(event.deltaY > 0 ? 1 : -1);
+    window.setTimeout(() => {
+      wheelLocked = false;
+    }, 620);
+  }, { passive: false });
+
+  let touchX = null;
+  let touchY = null;
+  document.addEventListener("touchstart", (event) => {
+    touchX = event.touches[0].clientX;
+    touchY = event.touches[0].clientY;
+  }, { passive: true });
+
+  document.addEventListener("touchend", (event) => {
+    if (touchX == null || touchY == null) return;
+    const dx = event.changedTouches[0].clientX - touchX;
+    const dy = event.changedTouches[0].clientY - touchY;
+    const primary = Math.abs(dy) > Math.abs(dx) ? dy : -dx;
+    if (Math.abs(primary) > 44) step(primary < 0 ? 1 : -1);
+    touchX = null;
+    touchY = null;
+  }, { passive: true });
 </script>
 </body>
 </html>
