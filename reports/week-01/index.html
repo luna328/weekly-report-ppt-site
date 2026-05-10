@@ -37,6 +37,14 @@
   .mono{font-family:"JetBrains Mono","Microsoft YaHei",monospace;letter-spacing:.12em;text-transform:uppercase}
   .rule{height:1px;background:var(--pink);opacity:.45}
   .kicker{font-family:"JetBrains Mono","Microsoft YaHei",monospace;font-size:22px;letter-spacing:.16em;text-transform:uppercase;color:var(--pink)}
+  .back-home{
+    position:fixed;left:28px;top:26px;z-index:9999;display:inline-flex;align-items:center;gap:8px;
+    padding:10px 14px;color:var(--paper);text-decoration:none;background:rgba(6,5,7,.72);
+    border:1px solid rgba(237,61,140,.55);border-radius:999px;
+    font:500 14px/1 "Inter","Microsoft YaHei",system-ui,sans-serif;letter-spacing:.04em;
+    backdrop-filter:blur(10px);box-shadow:0 12px 32px rgba(0,0,0,.28);
+  }
+  .back-home:hover{color:var(--pink);border-color:var(--pink)}
   .zh-title{font-family:"Instrument Serif","STSong","SimSun",serif;font-style:italic;font-weight:400;letter-spacing:0}
   .s-cover .stage{position:absolute;left:60px;right:60px;top:176px;bottom:350px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px}
   .s-cover .pre{font-family:"JetBrains Mono","Microsoft YaHei",monospace;font-size:28px;letter-spacing:.38em;text-transform:uppercase;color:var(--paper);opacity:.78}
@@ -110,6 +118,7 @@
 </style>
 </head>
 <body>
+<a class="back-home" href="../../" aria-label="返回目录">← 返回目录</a>
 <deck-stage>
   <section class="slide s-cover" data-label="01 Cover" data-om-validate="false">
     <div class="runner"><span class="brand">Weekly Report</span><span>Procurement Onboarding</span></div>

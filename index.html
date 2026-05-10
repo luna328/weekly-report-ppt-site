@@ -6,8 +6,6 @@
   <title>每周工作周报 PPT</title>
   <style>
     :root {
-      --ink: #08070a;
-      --panel: #121016;
       --paper: #f7eef3;
       --muted: rgba(247, 238, 243, .66);
       --pink: #ed3d8c;
@@ -66,14 +64,6 @@
       line-height: .98;
       font-weight: 400;
       letter-spacing: 0;
-    }
-
-    .summary {
-      max-width: 34rem;
-      color: var(--muted);
-      font-size: 17px;
-      line-height: 1.8;
-      margin: 22px 0 0;
     }
 
     .meta {
@@ -143,13 +133,6 @@
       white-space: nowrap;
     }
 
-    footer {
-      margin-top: 48px;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.7;
-    }
-
     @media (max-width: 760px) {
       .wrap {
         width: min(100% - 28px, 1120px);
@@ -182,7 +165,6 @@
       <div>
         <div class="kicker">Weekly Report Archive</div>
         <h1>每周工作周报 PPT</h1>
-        <p class="summary">这里集中存放每周生成的 HTML 演示稿。点击周次即可在线预览，后续新增周报时只需要加入新的周次页面并更新这个目录。</p>
       </div>
       <div class="meta">
         Procurement Notes<br />
@@ -200,10 +182,6 @@
         <div class="tag">Open Deck</div>
       </a>
     </main>
-
-    <footer>
-      更新方式：新增 `reports/week-02/`、`reports/week-03/` 等文件夹后，在本页添加对应入口，再提交到 GitHub。
-    </footer>
   </div>
 </body>
 </html>
