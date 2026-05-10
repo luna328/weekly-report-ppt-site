@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>每周工作周报 PPT</title>
+  <style>
+    :root {
+      --ink: #08070a;
+      --panel: #121016;
+      --paper: #f7eef3;
+      --muted: rgba(247, 238, 243, .66);
+      --pink: #ed3d8c;
+      --line: rgba(237, 61, 140, .32);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--paper);
+      background:
+        radial-gradient(circle at 22% 18%, rgba(237, 61, 140, .18), transparent 30%),
+        radial-gradient(circle at 78% 24%, rgba(255, 102, 168, .10), transparent 28%),
+        linear-gradient(135deg, #050306 0%, #100b12 58%, #050306 100%);
+      font-family: Inter, "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+    }
+
+    .wrap {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 72px 0 56px;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 32px;
+      align-items: end;
+      padding-bottom: 38px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .kicker,
+    .meta,
+    .tag {
+      font-family: "JetBrains Mono", Consolas, monospace;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .kicker {
+      color: var(--pink);
+      font-size: 14px;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: Georgia, "STSong", serif;
+      font-style: italic;
+      font-size: clamp(52px, 9vw, 116px);
+      line-height: .98;
+      font-weight: 400;
+      letter-spacing: 0;
+    }
+
+    .summary {
+      max-width: 34rem;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.8;
+      margin: 22px 0 0;
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 13px;
+      text-align: right;
+      line-height: 1.8;
+      white-space: nowrap;
+    }
+
+    main {
+      padding-top: 34px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .report {
+      display: grid;
+      grid-template-columns: 96px 1fr auto;
+      gap: 24px;
+      align-items: center;
+      min-height: 132px;
+      padding: 24px;
+      color: inherit;
+      text-decoration: none;
+      background: rgba(18, 16, 22, .78);
+      border: 1px solid rgba(247, 238, 243, .12);
+      border-radius: 8px;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+
+    .report:hover {
+      transform: translateY(-2px);
+      border-color: var(--pink);
+      background: rgba(237, 61, 140, .09);
+    }
+
+    .week {
+      font-family: Georgia, serif;
+      font-style: italic;
+      font-size: 58px;
+      line-height: 1;
+      color: var(--pink);
+    }
+
+    .report h2 {
+      margin: 0;
+      font-family: Georgia, "STSong", serif;
+      font-style: italic;
+      font-size: 34px;
+      font-weight: 400;
+      letter-spacing: 0;
+    }
+
+    .report p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .tag {
+      color: var(--pink);
+      border: 1px solid var(--pink);
+      padding: 8px 12px;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    footer {
+      margin-top: 48px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 760px) {
+      .wrap {
+        width: min(100% - 28px, 1120px);
+        padding-top: 44px;
+      }
+
+      header,
+      .report {
+        grid-template-columns: 1fr;
+      }
+
+      .meta {
+        text-align: left;
+        white-space: normal;
+      }
+
+      .report {
+        gap: 14px;
+      }
+
+      .tag {
+        width: max-content;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <div class="kicker">Weekly Report Archive</div>
+        <h1>每周工作周报 PPT</h1>
+        <p class="summary">这里集中存放每周生成的 HTML 演示稿。点击周次即可在线预览，后续新增周报时只需要加入新的周次页面并更新这个目录。</p>
+      </div>
+      <div class="meta">
+        Procurement Notes<br />
+        HTML Slides Archive
+      </div>
+    </header>
+
+    <main>
+      <a class="report" href="./reports/week-01/">
+        <div class="week">01</div>
+        <div>
+          <h2>第一周工作周报</h2>
+          <p>供应商及物料信息梳理、电机交期跟进、生产欠料回复、BOM 成本分析、线材事项、跨部门流程和 ERP 优化。</p>
+        </div>
+        <div class="tag">Open Deck</div>
+      </a>
+    </main>
+
+    <footer>
+      更新方式：新增 `reports/week-02/`、`reports/week-03/` 等文件夹后，在本页添加对应入口，再提交到 GitHub。
+    </footer>
+  </div>
+</body>
+</html>

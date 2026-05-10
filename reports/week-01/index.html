@@ -1,0 +1,272 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<title>鏈懆宸ヤ綔鍛ㄦ姤 | Pink Script</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="deck-stage.js"></script>
+<style>
+  :root{
+    --ink:#060507;
+    --paper:#F5EDF1;
+    --pink:#ED3D8C;
+    --pink-2:#FF66A8;
+    --line:rgba(237,61,140,.34);
+    --mute:rgba(245,237,241,.62);
+    --hair:rgba(245,237,241,.16);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:#000;color:var(--paper);font-family:"Inter","Microsoft YaHei","PingFang SC",system-ui,sans-serif}
+  deck-stage>section.slide{
+    position:relative;width:1920px;height:1080px;overflow:hidden;color:var(--paper);
+    background:radial-gradient(ellipse 90% 70% at 28% 26%,#1A1218 0%,#0A0709 55%,#050306 100%);
+  }
+  .slide::before{
+    content:"";position:absolute;inset:0;pointer-events:none;opacity:.08;mix-blend-mode:screen;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+  .slide::after{content:"";position:absolute;inset:36px;pointer-events:none;border:1px solid var(--hair)}
+  .runner,.footer{
+    position:absolute;left:60px;right:60px;display:flex;align-items:baseline;justify-content:space-between;
+    font-family:"JetBrains Mono","Microsoft YaHei",monospace;font-size:23px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);z-index:5;white-space:nowrap;
+  }
+  .runner{top:60px}.footer{bottom:60px}.runner .brand,.footer em{color:var(--pink);font-style:normal}.footer .pageno{color:var(--paper)}
+  .script{font-family:"Instrument Serif","STSong","SimSun",serif;font-style:italic;font-weight:400;color:var(--pink);letter-spacing:0;line-height:1.05;padding-bottom:.12em}
+  .mono{font-family:"JetBrains Mono","Microsoft YaHei",monospace;letter-spacing:.12em;text-transform:uppercase}
+  .rule{height:1px;background:var(--pink);opacity:.45}
+  .kicker{font-family:"JetBrains Mono","Microsoft YaHei",monospace;font-size:22px;letter-spacing:.16em;text-transform:uppercase;color:var(--pink)}
+  .zh-title{font-family:"Instrument Serif","STSong","SimSun",serif;font-style:italic;font-weight:400;letter-spacing:0}
+  .s-cover .stage{position:absolute;left:60px;right:60px;top:176px;bottom:350px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px}
+  .s-cover .pre{font-family:"JetBrains Mono","Microsoft YaHei",monospace;font-size:28px;letter-spacing:.38em;text-transform:uppercase;color:var(--paper);opacity:.78}
+  .s-cover .title{font-size:232px;line-height:1.04;text-align:center;text-shadow:0 0 80px rgba(237,61,140,.18)}
+  .s-cover .title .l2{display:block;color:var(--paper);padding-left:120px}
+  .s-cover .sub{font-size:28px;letter-spacing:.14em;text-transform:uppercase;color:var(--paper);opacity:.86;margin-top:12px}
+  .s-cover .sub em{color:var(--pink);font-style:normal}
+  .s-cover .lower{position:absolute;left:60px;right:60px;bottom:160px;display:flex;justify-content:space-between;align-items:end;gap:32px}
+  .s-cover .lab{font-family:"JetBrains Mono","Microsoft YaHei",monospace;font-size:22px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+  .s-cover .val{font-size:46px;color:var(--pink);line-height:1.15}.s-cover .val.alt{color:var(--paper)}
+  .s-toc .body{position:absolute;inset:140px 60px 140px 60px;display:grid;grid-template-columns:500px 1fr;gap:80px}
+  .s-toc h1{font-size:200px;line-height:1.04;color:var(--pink)}
+  .s-toc h1 .small{display:block;font-size:74px;color:var(--paper);margin-top:12px;opacity:.84}
+  .s-toc .rows{display:flex;flex-direction:column}
+  .s-toc .row{display:grid;grid-template-columns:100px 1fr 180px;gap:32px;align-items:baseline;padding:25px 0;border-bottom:1px solid var(--hair)}
+  .s-toc .num{font-family:"Instrument Serif",serif;font-style:italic;font-size:62px;color:var(--pink);line-height:1}
+  .s-toc .title{font-size:52px;color:var(--paper);line-height:1.06}
+  .s-toc .desc{font-size:24px;color:var(--mute);margin-top:8px;line-height:1.42;font-weight:300}
+  .s-toc .meta{font-family:"JetBrains Mono","Microsoft YaHei",monospace;font-size:22px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);text-align:right}
+  .s-stats .body{position:absolute;inset:140px 60px 140px 60px;display:grid;grid-template-columns:.95fr 1.05fr;gap:70px}
+  .s-stats .left{display:flex;flex-direction:column;justify-content:space-between;padding-right:20px}
+  .s-stats h2{font-size:128px;line-height:1.08;color:var(--paper)}
+  .s-stats h2 em{color:var(--pink);font-style:italic}
+  .s-stats p{font-size:26px;line-height:1.62;color:var(--mute);max-width:34ch;font-weight:300}
+  .s-stats .right{display:flex;flex-direction:column;gap:18px}
+  .s-stats .stat{display:grid;grid-template-columns:205px 1fr;align-items:center;gap:30px;padding-bottom:16px;border-bottom:1px solid var(--hair)}
+  .s-stats .figure{font-family:"Instrument Serif",serif;font-style:italic;font-size:112px;line-height:.9;color:var(--pink)}
+  .s-stats .lab{font-family:"JetBrains Mono","Microsoft YaHei",monospace;font-size:22px;letter-spacing:.12em;text-transform:uppercase;color:var(--paper)}
+  .s-stats .desc{font-size:24px;color:var(--mute);margin-top:8px;line-height:1.45;font-weight:300}
+  .s-section .body{position:absolute;inset:0;display:flex;align-items:center;justify-content:flex-start;padding-left:200px}
+  .s-section .num{font-family:"Instrument Serif",serif;font-style:italic;color:var(--pink);font-size:560px;line-height:.82;letter-spacing:0;text-shadow:0 0 120px rgba(237,61,140,.22)}
+  .s-section .label-l{position:absolute;left:80px;bottom:140px;transform:rotate(-90deg);transform-origin:left bottom;font-family:"JetBrains Mono","Microsoft YaHei",monospace;font-size:22px;letter-spacing:.35em;text-transform:uppercase;color:var(--mute);white-space:nowrap}
+  .s-section .right{position:absolute;right:100px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:18px;max-width:430px}
+  .s-section h2{font-size:86px;line-height:1.08;color:var(--paper)}
+  .s-section p{font-size:25px;line-height:1.55;color:var(--mute);font-weight:300}
+  .s-process .head{position:absolute;left:60px;right:60px;top:140px;display:flex;align-items:end;justify-content:space-between;gap:60px}
+  .s-process h2{font-size:136px;line-height:1.05;color:var(--paper);max-width:12ch}
+  .s-process h2 em{color:var(--pink);font-style:italic}
+  .s-process .lead{font-size:26px;color:var(--mute);max-width:42ch;line-height:1.58;font-weight:300;padding-bottom:18px}
+  .s-process .row{position:absolute;left:60px;right:60px;top:520px;display:grid;grid-template-columns:repeat(5,1fr);gap:24px}
+  .s-process .step{position:relative;display:flex;flex-direction:column;gap:18px;padding:26px 0;border-top:1px solid var(--pink)}
+  .s-process .n{font-family:"Instrument Serif",serif;font-style:italic;font-size:90px;color:var(--pink);line-height:.8}
+  .s-process h3{font-size:40px;color:var(--paper);line-height:1.1}
+  .s-process p{font-size:22px;color:var(--mute);line-height:1.5;font-weight:300}
+  .s-process .arr{position:absolute;right:-16px;top:60px;width:24px;height:24px;color:var(--pink);pointer-events:none}.s-process .step:last-child .arr{display:none}
+  .s-matrix .head{position:absolute;left:60px;right:60px;top:140px;display:flex;align-items:end;justify-content:space-between;gap:60px}
+  .s-matrix h2{font-size:122px;line-height:1.05;color:var(--paper);max-width:14ch}.s-matrix h2 em{color:var(--pink);font-style:italic}
+  .s-matrix .source{font-family:"JetBrains Mono","Microsoft YaHei",monospace;font-size:21px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);padding-bottom:18px;max-width:36ch;line-height:1.5;text-align:right}
+  .s-matrix .table{position:absolute;left:60px;right:60px;top:440px;bottom:140px;display:grid;grid-template-columns:1.15fr 1.35fr 1.35fr 1.35fr;grid-auto-rows:1fr}
+  .s-matrix .cell{padding:14px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;font-size:22px;line-height:1.42;color:var(--paper);font-weight:300}
+  .s-matrix .colhead{font-family:"JetBrains Mono","Microsoft YaHei",monospace;font-size:20px;letter-spacing:.12em;text-transform:uppercase;color:var(--pink);border-bottom-color:var(--pink)}
+  .s-matrix .label{font-size:31px;color:var(--paper)}
+  .s-matrix .focus{background:rgba(237,61,140,.08)}
+  .s-matrix .pill{display:inline-block;padding:6px 14px;font-family:"JetBrains Mono","Microsoft YaHei",monospace;font-size:16px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--pink);white-space:nowrap;line-height:1.2;color:var(--pink)}
+  .s-quote .body{position:absolute;inset:140px 60px 140px 60px;display:grid;grid-template-columns:330px 1fr;gap:80px;align-items:center}
+  .s-quote .qmark{font-family:"Instrument Serif",serif;font-style:italic;font-size:300px;line-height:.7;color:var(--pink)}
+  .s-quote .lab{font-family:"JetBrains Mono","Microsoft YaHei",monospace;font-size:22px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+  .s-quote blockquote{font-family:"Instrument Serif","STSong","SimSun",serif;font-style:italic;font-size:78px;line-height:1.16;color:var(--paper)}
+  .s-quote blockquote em{color:var(--pink);font-style:italic}
+  .s-quote .attr{margin-top:36px;padding-top:22px;border-top:1px solid var(--pink)}
+  .s-quote .who{font-size:28px;color:var(--paper)}.s-quote .role{font-size:22px;color:var(--mute);margin-top:8px}
+  .s-cta .body{position:absolute;inset:140px 60px 140px 60px;display:flex;flex-direction:column;justify-content:space-between}
+  .s-cta .pre{font-family:"JetBrains Mono","Microsoft YaHei",monospace;font-size:24px;letter-spacing:.18em;text-transform:uppercase;color:var(--pink)}
+  .s-cta h2{font-size:132px;line-height:1.05;color:var(--paper);max-width:12ch}.s-cta h2 em{color:var(--pink);font-style:italic}
+  .s-cta .bottom{display:grid;grid-template-columns:repeat(3,1fr) 320px;gap:28px;align-items:end}
+  .s-cta .step{border-top:1px solid var(--pink);padding-top:22px;min-height:210px}
+  .s-cta .n{font-family:"Instrument Serif",serif;font-style:italic;font-size:80px;color:var(--pink);line-height:.85}
+  .s-cta h3{font-size:38px;color:var(--paper);margin-top:10px}.s-cta p{font-size:22px;color:var(--mute);line-height:1.5;margin-top:12px;font-weight:300}
+  .s-cta .nextbox{border:1px solid var(--pink);padding:26px;height:248px;display:flex;flex-direction:column;justify-content:space-between}
+  .s-cta .nextbox .big{font-size:58px;color:var(--pink);line-height:1.05}.s-cta .nextbox .small{font-size:21px;line-height:1.5;color:var(--mute)}
+</style>
+</head>
+<body>
+<deck-stage>
+  <section class="slide s-cover" data-label="01 Cover" data-om-validate="false">
+    <div class="runner"><span class="brand">Weekly Report</span><span>Procurement Onboarding</span></div>
+    <div class="stage">
+      <div class="pre">閲囪喘宸ヤ綔鍛ㄦ姤</div>
+      <div class="title zh-title"><span>鏈懆宸ヤ綔</span><span class="l2">鍛ㄦ姤</span></div>
+      <div class="sub">Supplier 路 Material 路 ERP 路 <em>Closure</em></div>
+    </div>
+    <div class="lower">
+      <div><div class="lab">Focus</div><div class="val zh-title">渚涘簲鍟?/ 鐗╂枡 / 浜ゆ湡</div></div>
+      <div><div class="lab">Theme</div><div class="val alt zh-title">鐔熸倝娴佺▼锛屽缓绔嬪彴璐︼紝涓诲姩闂幆</div></div>
+    </div>
+    <div class="footer"><span>Work Summary</span><span class="pageno"><em>01</em> / 09</span></div>
+  </section>
+
+  <section class="slide s-toc" data-label="02 Index" data-om-validate="false">
+    <div class="runner"><span class="brand">Index</span><span>Key Points</span></div>
+    <div class="body">
+      <h1 class="zh-title">鐩綍<span class="small">This Week</span></h1>
+      <div class="rows">
+        <div class="row"><div class="num">01</div><div><div class="title zh-title">瀹屾垚浜嬮」</div><div class="desc">渚涘簲鍟嗗彴璐︺€佺數鏈轰氦鏈熴€佹瑺鏂欏洖澶嶃€丅OM 鎴愭湰銆佺嚎鏉愩€佽法閮ㄩ棬涓?ERP銆?/div></div><div class="meta">Slides 03-05</div></div>
+        <div class="row"><div class="num">02</div><div><div class="title zh-title">寮傚父澶勭悊</div><div class="desc">渚涘簲鍟嗗洖澶嶄笉鍙婃椂锛屽凡娌熼€氥€佷笂鎶ュ苟鍚屾 PMC銆?/div></div><div class="meta">Slide 06</div></div>
+        <div class="row"><div class="num">03</div><div><div class="title zh-title">涓嬪懆璁″垝</div><div class="desc">缁х画琛ュ彴璐︺€佺洴浜ゆ湡銆佸 BOM銆佺啛鎮夐噾铦跺拰閲囪喘娴佺▼銆?/div></div><div class="meta">Slide 07</div></div>
+        <div class="row"><div class="num">04</div><div><div class="title zh-title">蹇冨緱浣撲細</div><div class="desc">浠庘€滃偓浜ゆ湡鈥濆欢浼稿埌鐞嗚В鐗╂枡銆佷骇鍝併€佹垚鏈笌鍗忎綔銆?/div></div><div class="meta">Slide 08</div></div>
+        <div class="row"><div class="num">05</div><div><div class="title zh-title">琛屽姩闂幆</div><div class="desc">娌夋穩鍩虹璧勬枡锛屾彁鍗囦富鍔ㄥ弽棣堝拰鐙珛澶勭悊鑳藉姏銆?/div></div><div class="meta">Slide 09</div></div>
+      </div>
+    </div>
+    <div class="footer"><span>Agenda</span><span class="pageno"><em>02</em> / 09</span></div>
+  </section>
+
+  <section class="slide s-stats" data-label="03 Completed Overview" data-om-validate="false">
+    <div class="runner"><span class="brand">Chapter 01</span><span>Completed</span></div>
+    <div class="body">
+      <div class="left">
+        <div class="kicker">鏈懆瀹屾垚浜嬮」</div>
+        <h2 class="zh-title">浠庡熀纭€璧勬枡鍒?br><em>浜や粯璺熻繘</em>銆?/h2>
+        <p>鏈懆閲嶇偣鍥寸粫閲囪喘鍩虹淇℃伅銆佺墿鏂欎氦鏈熴€佺敓浜ф瑺鏂欎笌鎴愭湰缁撴瀯灞曞紑锛屾妸闆舵暎浜嬮」閫愭鏁寸悊鎴愬彲鏌ヨ銆佸彲璺熻繘銆佸彲鍙嶉鐨勫伐浣滃熀纭€銆?/p>
+      </div>
+      <div class="right">
+        <div class="stat"><div class="figure">01</div><div><div class="lab">渚涘簲鍟嗕笌鐗╂枡姊崇悊</div><div class="desc">鏁寸悊渚涘簲鍟嗐€佺墿鏂欑粍瀵瑰簲鍏崇郴锛屽舰鎴?Excel 鍙拌处锛屼究浜庡悗缁煡璇㈠拰娌熼€氥€?/div></div></div>
+        <div class="stat"><div class="figure">02</div><div><div class="lab">鐢垫満浜ゆ湡璺熻繘</div><div class="desc">纭渚涘簲鍟嗕氦浠樿繘搴︼紝骞惰ˉ鍏呯悊瑙ｇ敓浜у懆鏈熴€佸紓甯搁闄╁拰浜у搧浣滅敤銆?/div></div></div>
+        <div class="stat"><div class="figure">03</div><div><div class="lab">鐢熶骇娆犳枡鍥炲</div><div class="desc">鏍规嵁娆犳枡琛ㄨ窡杩涘埌璐ц繘搴︼紝鍚屾渚涘簲鍟嗕氦浠樻儏鍐碉紝鏀拺浜х嚎瀹夋帓銆?/div></div></div>
+        <div class="stat"><div class="figure">10+</div><div><div class="lab">BOM 鎴愭湰鍒嗘瀽</div><div class="desc">鏁寸悊鍗佸嚑娆句骇鍝?BOM锛屽垵姝ヨ瘑鍒叧閿墿鏂欐瀯鎴愪笌鎴愭湰鍗犳瘮銆?/div></div></div>
+      </div>
+    </div>
+    <div class="footer"><span>Foundation 路 Delivery 路 Cost</span><span class="pageno"><em>03</em> / 09</span></div>
+  </section>
+
+  <section class="slide s-process" data-label="04 Work Flow" data-om-validate="false">
+    <div class="runner"><span class="brand">Chapter 01</span><span>Work Stream</span></div>
+    <div class="head">
+      <h2 class="zh-title">鏈懆<br><em>鎺ㄨ繘璺緞</em>銆?/h2>
+      <div class="lead">宸ヤ綔涓荤嚎浠庘€滀俊鎭暣鐞嗏€濆紑濮嬶紝寤朵几鍒颁氦鏈熺‘璁ゃ€佷骇绾块渶姹傘€佹垚鏈鐭ワ紝鍐嶅埌璺ㄩ儴闂ㄦ祦绋嬪拰绯荤粺浼樺寲銆?/div>
+    </div>
+    <div class="row">
+      <div class="step"><div class="n">01</div><h3 class="zh-title">鍙拌处</h3><p>渚涘簲鍟嗗垎甯冦€佺墿鏂欑被鍒€佺墿鏂欑粍瀵瑰簲鍏崇郴鍒濇寤烘。銆?/p><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16M14 5l7 7-7 7"/></svg></div>
+      <div class="step"><div class="n">02</div><h3 class="zh-title">浜ゆ湡</h3><p>鐢垫満銆佺嚎鏉愪氦鏈熸寔缁窡杩涳紝鍏虫敞鎺掓湡銆佸嚭璐у拰鍒拌揣銆?/p><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16M14 5l7 7-7 7"/></svg></div>
+      <div class="step"><div class="n">03</div><h3 class="zh-title">娆犳枡</h3><p>鎸夌敓浜ф瑺鏂欒〃鍥炲杩涘害锛屽噺灏戠墿鏂欏欢杩熷鐢熶骇瀹夋帓鐨勫奖鍝嶃€?/p><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16M14 5l7 7-7 7"/></svg></div>
+      <div class="step"><div class="n">04</div><h3 class="zh-title">鎴愭湰</h3><p>鏁寸悊浜у搧 BOM锛岃瀵熷叧閿墿鏂欍€佹垚鏈崰姣斿拰浠锋牸娉㈠姩椋庨櫓銆?/p><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16M14 5l7 7-7 7"/></svg></div>
+      <div class="step"><div class="n">05</div><h3 class="zh-title">娴佺▼</h3><p>瀵规帴浠撳簱銆佺爺鍙戙€佽储鍔★紝骞跺弽棣堥噾铦剁郴缁熸搷浣滀紭鍖栭渶姹傘€?/p></div>
+    </div>
+    <div class="footer"><span>Work Stream 路 This Week</span><span class="pageno"><em>04</em> / 09</span></div>
+  </section>
+
+  <section class="slide s-matrix" data-label="05 Collaboration Matrix" data-om-validate="false">
+    <div class="runner"><span class="brand">Chapter 01</span><span>Collaboration</span></div>
+    <div class="head">
+      <h2 class="zh-title">璺ㄩ儴闂?br><em>瀵规帴鍦板浘</em>銆?/h2>
+      <div class="source">Warehouse 路 R&D 路 Finance 路 ERP</div>
+    </div>
+    <div class="table">
+      <div class="cell colhead">瀵硅薄</div><div class="cell colhead">鏈懆瀵规帴</div><div class="cell colhead">褰㈡垚璁ょ煡</div><div class="cell colhead">鍚庣画鍏虫敞</div>
+      <div class="cell label zh-title">浠撳簱</div><div class="cell focus">鏀惰揣銆佹墦鍖呫€佸瘎蹇€掕矾寰?/div><div class="cell">閲囪喘浜や粯闇€瑕佽惤鍒板疄闄呭叆搴撲笌鍙戣繍鍔ㄤ綔</div><div class="cell">鍒拌揣銆佹敹璐у紓甯搞€佸寘瑁呰姹?/div>
+      <div class="cell label zh-title">鐮斿彂</div><div class="cell focus">鏍峰搧浜嬮」鍙婅礋璐ｄ汉淇℃伅</div><div class="cell">鏍峰搧闇€姹傝鏄庣‘璐ｄ换浜哄拰娌熼€氶摼璺?/div><div class="cell">鏍峰搧杩涘害銆佸彉鏇翠俊鎭悓姝?/div>
+      <div class="cell label zh-title">璐㈠姟</div><div class="cell focus">璇锋娴佺▼鍙婅祫鏂欒姹?/div><div class="cell">閲囪喘鍔ㄤ綔涓庝粯娆捐妭鐐归渶瑕佷繚鎸佷竴鑷?/div><div class="cell">鍗曟嵁瀹屾暣鎬с€佷粯娆捐妭濂?/div>
+      <div class="cell label zh-title">ERP</div><div class="cell focus">鍒楄〃鏄剧ず銆佹壒閲忔墦鍗拌鍗?/div><div class="cell">绯荤粺浼樺寲浼氱洿鎺ュ奖鍝嶆棩甯稿鐞嗘晥鐜?/div><div class="cell">闂璁板綍銆佸姛鑳藉弽棣堛€佷娇鐢ㄤ範鎯矇娣€</div>
+    </div>
+    <div class="footer"><span>Process Coordination</span><span class="pageno"><em>05</em> / 09</span></div>
+  </section>
+
+  <section class="slide s-section" data-label="06 Exception" data-om-validate="false">
+    <div class="runner"><span class="brand">Chapter 02</span><span>Exception Handling</span></div>
+    <div class="label-l">Supplier Response 路 Motor Delivery</div>
+    <div class="body"><div class="num">02</div></div>
+    <div class="right">
+      <div class="kicker">寮傚父鎯呭喌鍙婂鐞?/div>
+      <h2 class="zh-title">鏆傛棤閲嶅ぇ寮傚父锛?br>浣嗘湁浜ゆ湡鍥炲椋庨櫓銆?/h2>
+      <p>鐢垫満渚涘簲鍟嗘湭鎸夋椂鍥炲浜ゆ湡鍙婃暟閲忕‘璁わ紝宸茬數璇濆拰淇℃伅鍌姙锛涙棤娉曟槑纭洖澶嶆椂宸蹭笂鎶ラ瀵硷紝骞跺悓姝?PMC 棰勮鍙兘寤惰繜銆?/p>
+    </div>
+    <div class="footer"><span>Communicate 路 Escalate 路 Notify</span><span class="pageno"><em>06</em> / 09</span></div>
+  </section>
+
+  <section class="slide s-process" data-label="07 Next Week" data-om-validate="false">
+    <div class="runner"><span class="brand">Chapter 03</span><span>Next Week</span></div>
+    <div class="head">
+      <h2 class="zh-title">涓嬪懆<br><em>宸ヤ綔璁″垝</em>銆?/h2>
+      <div class="lead">涓嬩竴姝ヤ互鈥滄寔缁淮鎶ゃ€佸強鏃跺弽棣堛€佺嫭绔嬪鐞嗏€濅负鏍稿績锛岀户缁妸閲囪喘鍩虹鑳藉姏琛ラ綈銆?/div>
+    </div>
+    <div class="row">
+      <div class="step"><div class="n">01</div><h3 class="zh-title">瀹屽杽璧勬枡</h3><p>琛ュ厖渚涘簲鍟嗐€佺墿鏂欑粍銆佷氦鏈熴€佷环鏍煎拰寮傚父璁板綍銆?/p><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16M14 5l7 7-7 7"/></svg></div>
+      <div class="step"><div class="n">02</div><h3 class="zh-title">鐩揣浜ゆ湡</h3><p>鎸佺画璺熻繘鐢垫満銆佺嚎鏉愭帓鏈熴€佸嚭璐ф椂闂村拰瀹為檯鍒拌揣銆?/p><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16M14 5l7 7-7 7"/></svg></div>
+      <div class="step"><div class="n">03</div><h3 class="zh-title">瀛︿範鎴愭湰</h3><p>缁х画鏁寸悊 BOM锛屽叧娉ㄥ叧閿墿鏂欎笌楂樻垚鏈崰姣旂墿鏂欍€?/p><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16M14 5l7 7-7 7"/></svg></div>
+      <div class="step"><div class="n">04</div><h3 class="zh-title">鐔熸倝绯荤粺</h3><p>璁板綍閲戣澏 ERP 浣跨敤闂锛岀户缁矡閫氫紭鍖栨搷浣滄祦绋嬨€?/p><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16M14 5l7 7-7 7"/></svg></div>
+      <div class="step"><div class="n">05</div><h3 class="zh-title">寮哄寲闂幆</h3><p>宸插畬鎴愩€佸緟鎺ㄨ繘銆佸紓甯镐簨椤瑰強鏃舵暣鐞嗗苟涓诲姩鍙嶉銆?/p></div>
+    </div>
+    <div class="footer"><span>Plan 路 Continuous Improvement</span><span class="pageno"><em>07</em> / 09</span></div>
+  </section>
+
+  <section class="slide s-quote" data-label="08 Reflection" data-om-validate="false">
+    <div class="runner"><span class="brand">Chapter 04</span><span>Reflection</span></div>
+    <div class="body">
+      <div class="left"><div class="qmark">"</div><div class="lab">鏈懆蹇冨緱浣撲細</div></div>
+      <div class="right">
+        <blockquote>
+          閲囪喘涓嶅彧鏄笅鍗曞拰鍌揣锛屼篃瑕佺悊瑙?em>鐗╂枡銆佷緵搴斿晢銆佷骇鍝併€佹垚鏈?/em>浠ュ強璺ㄩ儴闂ㄥ崗浣溿€?        </blockquote>
+        <div class="attr">
+          <div class="who">鏈懆涓昏鏀惰幏</div>
+          <div class="role">浠庢墽琛屼簨椤癸紝閫愭杩囨浮鍒扮悊瑙ｄ氦浠橀闄┿€佹垚鏈粨鏋勫拰娴佺▼鏁堢巼銆?/div>
+        </div>
+      </div>
+    </div>
+    <div class="footer"><span>Learning 路 Procurement Role</span><span class="pageno"><em>08</em> / 09</span></div>
+  </section>
+
+  <section class="slide s-cta" data-label="09 Close" data-om-validate="false">
+    <div class="runner"><span class="brand">Chapter 05</span><span>Closure</span></div>
+    <div class="body">
+      <div class="top">
+        <div class="pre">Next Focus</div>
+        <h2 class="zh-title"><em>缁х画娌夋穩</em><br>閲囪喘鍩虹鑳藉姏銆?/h2>
+      </div>
+      <div class="bottom">
+        <div class="step"><div class="n">01</div><h3 class="zh-title">璧勬枡鍙淮鎶?/h3><p>璁╀緵搴斿晢銆佺墿鏂欍€佷环鏍笺€佷氦鏈熴€佸紓甯镐俊鎭寔缁洿鏂般€?/p></div>
+        <div class="step"><div class="n">02</div><h3 class="zh-title">椋庨櫓鏃╁悓姝?/h3><p>渚涘簲鍟嗗洖澶嶃€佷氦鏈熷彉鍖栥€佹瑺鏂欓闄╁強鏃惰褰曞苟鍙嶉銆?/p></div>
+        <div class="step"><div class="n">03</div><h3 class="zh-title">娴佺▼鏇寸嫭绔?/h3><p>閫愭鐔熸倝涓嬪崟銆佽娆俱€佹敹璐с€佹牱鍝佸拰蹇€掔瓑瀹屾暣閾捐矾銆?/p></div>
+        <div class="nextbox">
+          <div class="big zh-title">Thank<br>You.</div>
+          <div class="small">浠ヨ褰曚績闂幆锛屼互鐞嗚В淇冨崗浣滐紝浠ュ弽棣堜績鎺ㄨ繘銆?/div>
+        </div>
+      </div>
+    </div>
+    <div class="footer"><span>End 路 Weekly Report</span><span class="pageno"><em>09</em> / 09</span></div>
+  </section>
+</deck-stage>
+<script type="application/json" id="speaker-notes">
+[
+  "灏侀潰锛氭湰鍛ㄩ噰璐伐浣滃懆鎶ワ紝鏍稿績鍏抽敭璇嶆槸渚涘簲鍟嗐€佺墿鏂欍€佷氦鏈熴€丒RP 鍜岄棴鐜€?,
+  "鐩綍锛氬皢鍘熷鍛ㄦ姤鍘嬬缉涓哄畬鎴愪簨椤广€佸紓甯稿鐞嗐€佷笅鍛ㄨ鍒掋€佸績寰椾綋浼氬拰琛屽姩闂幆銆?,
+  "瀹屾垚浜嬮」姒傝锛氫緵搴斿晢鐗╂枡鍙拌处銆佺數鏈轰氦鏈熴€佺敓浜ф瑺鏂欏拰 BOM 鎴愭湰鍒嗘瀽銆?,
+  "宸ヤ綔鎺ㄨ繘璺緞锛氬彴璐︺€佷氦鏈熴€佹瑺鏂欍€佹垚鏈€佹祦绋嬩簲鏉′富绾裤€?,
+  "璺ㄩ儴闂ㄥ鎺ュ湴鍥撅細浠撳簱銆佺爺鍙戙€佽储鍔°€丒RP 鐨勫鎺ヤ簨椤瑰拰鍚庣画鍏虫敞鐐广€?,
+  "寮傚父澶勭悊锛氭殏鏃犻噸澶у紓甯革紱鐢垫満渚涘簲鍟嗗洖澶嶄笉鍙婃椂锛屽凡娌熼€氥€佷笂鎶ュ苟鍚屾 PMC銆?,
+  "涓嬪懆璁″垝锛氬畬鍠勮祫鏂欍€佽窡杩涗氦鏈熴€佸涔犳垚鏈€佺啛鎮夌郴缁熴€佸己鍖栭棴鐜€?,
+  "蹇冨緱浣撲細锛氶噰璐笉浠呮槸涓嬪崟鍌揣锛屼篃瑕佺悊瑙ｇ墿鏂欍€佷緵搴斿晢銆佷骇鍝併€佹垚鏈拰鍗忎綔銆?,
+  "鏀舵潫椤碉細鍚庣画缁х画娌夋穩鍩虹璧勬枡銆佹棭鍚屾椋庨櫓銆佹彁鍗囩嫭绔嬪鐞嗚兘鍔涖€?
+]
+</script>
+</body>
+</html>
+
