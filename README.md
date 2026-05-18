@@ -10,7 +10,12 @@ This repository hosts weekly HTML slide decks.
 └── reports/
     └── week-01/
         ├── index.html
-        └── deck-stage.js
+        └── assets/
+            └── motion.min.js
+    └── week-02/
+        ├── index.html
+        └── assets/
+            └── motion.min.js
 ```
 
 ## Deploy
